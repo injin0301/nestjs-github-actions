@@ -69,7 +69,7 @@ jobs:
       - name: Deploy
         run: echo Deploying ...
   deploy:
-    runs-on: ububtu-latest
+    runs-on: ubuntu-latest
       - name: Deploy
     needs: [build]
     if: ${{ matrix.node-version != ''}}
