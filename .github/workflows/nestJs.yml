@@ -84,6 +84,7 @@ jobs:
       - name: Create deploy
         run: npm version ${{ matrix.node-version}}
       - name: Push changes
+        uses: WiktorJ/github-tag-action@2.0.0
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: false
