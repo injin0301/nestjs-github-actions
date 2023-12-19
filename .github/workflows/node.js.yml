@@ -25,14 +25,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - name: tests
+      - name: Run TU
       - run: npm run test:coverage
-      - name: Codacy Coverage Reporter
-        uses: codacy/codacy-coverage-reporter-action@v1.3.0
+      - name: Reports TU
+        uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          coverage-reports: Test Reports
-          force-coverage-parser: ''
+          name: JEST Tests
+          path: reports/jest-junit.xml
+          reporter: jest-junit
           
       
       
