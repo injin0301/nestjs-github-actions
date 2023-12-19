@@ -26,10 +26,15 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - name: tests
-      - run: npm test
+      - run: npm test:coverage
       - name: Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
+        if: success() || failure()
         with:
-          coverage-reports: ''
+          coverage-reports: Test Reports
+          force-coverage-parser: ''
+          
+      
+      
           
           
