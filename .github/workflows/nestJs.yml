@@ -85,11 +85,8 @@ jobs:
         run: npm version ${{ matrix.node-version}}
       #- name: Tag/Release on Push Action
       #  uses: rymndhng/release-on-push-action@v0.28.0
-      
-    runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
         uses: rymndhng/release-on-push-action@master
         with:
           bump_version_scheme: minor
