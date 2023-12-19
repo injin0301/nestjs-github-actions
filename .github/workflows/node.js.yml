@@ -31,9 +31,5 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
           coverage-reports: ''
-      - name: Tagger - Move semantic tags!
-      - uses: fischerscode/tagger@v0.2.0
-        with:
-          tag: ${{ github.ref }}
           
           
