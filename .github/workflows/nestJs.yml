@@ -83,8 +83,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
       - name: Create deploy
         run: npm version ${{ matrix.node-version}}
-      - name: Push changes
-        uses: WiktorJ/github-tag-action@2.0.0
-        env: 
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: false
+      - name: Tag/Release on Push Action
+        uses: rymndhng/release-on-push-action@v0.28.0
+            
+                   
+            
