@@ -48,7 +48,6 @@ jobs:
       - name: Lint api
         run: npm run lint
   build:
-    runs-on: ubuntu-latest
     needs: [lint, test]
     continue-on-error: true
     strategy:
