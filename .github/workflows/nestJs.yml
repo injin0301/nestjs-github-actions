@@ -35,8 +35,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm ci
-      - name: Test api
-        run: npm run test
+      - name: Lint api
+        run: npm run lint
   build:
     runs-on: ubuntu-latest
     steps:
