@@ -84,4 +84,6 @@ jobs:
       - name: Create deploy
         run: npm version ${{ matrix.node-version}}
       - name: Push changes
-        run: git push --follow-tags
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: false
