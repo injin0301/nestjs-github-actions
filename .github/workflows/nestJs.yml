@@ -89,8 +89,8 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: rymndhng/release-on-push-action@master
         with:
-          bump_version_scheme: minor
-          use_github_release_notes: norelease
+          bump_version_scheme: norelease
+          use_github_release_notes: true
             
                    
             
