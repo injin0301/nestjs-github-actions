@@ -88,8 +88,9 @@ jobs:
         with:
           name: test-report-${{ matrix.node-version }}
           path: ./junit.xml
-      - name: Tag/Release on Push Action
+      - name: Push tag
         run: git push --follow-tags
+      - name: Tag/Release on Push Action
         uses: rymndhng/release-on-push-action@master
         with:
           bump_version_scheme: norelease
