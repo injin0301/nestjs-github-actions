@@ -109,6 +109,6 @@ jobs:
         env:
           WITH_V: true
           DEFAULT_BUMP: patch
-        with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+      - name: version
+        run: npm --no-git-tag-version --allow-same-version version ${{ steps.tag.outputs.tag }}
+      
