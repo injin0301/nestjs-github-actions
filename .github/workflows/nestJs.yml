@@ -83,9 +83,19 @@ jobs:
           git config --global user.name "github-actions[bot]"
       - name: Create release
         run: npm version ${{ matrix.node-version}}
-      - name: Push
-        run: git push
-     
+      - name: Upload version file
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report-${{ matrix.node-version }}
+          path: ./junit.xml
+      - name: Tag/Release on Push Action
+        run: git push --follow-tags
+        uses: rymndhng/release-on-push-action@master
+        with:
+          bump_version_scheme: norelease
+          use_github_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
             
                    
