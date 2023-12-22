@@ -94,8 +94,14 @@ jobs:
           path: ./junit.xml
       - name: Push tag
         run: git push --follow-tags
-      - name: Tag/Release on Push Action
-        uses: ncipollo/release-action@v1
+
+      - uses: actions/checkout@master
+      - name: Increment version
+        id: version   
+        uses: vinodhraj/Bump-N-Tag-Version@master
         with:
-          generateReleaseNotes: true
-          tag: v${{ matrix.node-version }}
+          file_name: './VERSION'
+          tag_version: "true"
+
+
+      
