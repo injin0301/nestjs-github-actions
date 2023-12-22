@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -52,7 +52,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        node-version: [16, 18]
+        node-version: [18, 20]
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
@@ -68,7 +68,7 @@ jobs:
         run: npm run build
       - name: Deploy
         run: echo Deploying ...
-  deploy:
+  Release:
     runs-on: ubuntu-latest
     needs: [build]
     #if: ${{ matrix.node-version != ''}}
@@ -95,9 +95,4 @@ jobs:
         with:
           bump_version_scheme: norelease
           use_github_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     
-            
-                   
-            
+          tag: v${{ matrix.node-version }}
