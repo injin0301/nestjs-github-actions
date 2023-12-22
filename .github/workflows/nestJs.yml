@@ -25,6 +25,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
+        npm-version: [7.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -86,11 +87,11 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
       - name: Create release
-        run: npm version ${{ matrix.node-version}}
+        run: npm version ${{ matrix.npm-version}}
       - name: Upload version file
         uses: actions/upload-artifact@v3
         with:
-          name: test-report-${{ matrix.node-version }}
+          name: test-report-${{ matrix.npm-version }}
           path: ./junit.xml
       - name: Push tag
         run: git push --follow-tags
