@@ -76,16 +76,19 @@ jobs:
   Release:
     runs-on: ubuntu-latest
     needs: [build]
-    #if: ${{ matrix.node-version != ''}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        uses: actions/setup-node@v4
         with:
           show-progress: false
+          node-version: ${{ matrix.node-version }}
       - name: Configure Git
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
+          npm install
+          npm publish
       - name: Create release
         run: npm version ${{ matrix.npm-version}}
       - name: Upload version file
@@ -95,14 +98,13 @@ jobs:
           path: ./junit.xml
       - name: Push tag
         run: git push --follow-tags
-
       - uses: actions/checkout@master
         with:
           fetch-depth: '0'
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.17.2
         env:
-          WITH_V: false
+          WITH_V: true
         with:
           tag_name: ${{ github.run_number }}
           release_name: Release ${{ github.run_number }}
