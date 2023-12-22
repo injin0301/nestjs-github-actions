@@ -11,10 +11,11 @@ on:
 
   workflow_dispatch:
     inputs:
-      type: string
-      description: 'Release type'
-      required: true
-      default: 'patch'
+      version:
+        type: string
+        description: 'Release version'
+        required: true
+        default: 'patch'
 
 permissions:
   contents: write
