@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: ['master']
 
+  workflow_dispatch:
+    inputs:
+      type: string
+
 permissions:
   contents: write
   deployments: write
@@ -76,39 +80,27 @@ jobs:
   Release:
     runs-on: ubuntu-latest
     needs: [build]
-    strategy:
-      matrix:
-        node-version: [20.x]
-        npm-version: [7.18.1]
+    if: ${{ inputs.version != "" }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           show-progress: false
-          node-version: ${{ matrix.node-version }}
       - name: Configure Git
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
       - name: Create release
-        run: 
-          npm version ${{ matrix.npm-version}}
-          npm install
+        run: npm version ${{ inputs.version }}
       - name: Upload version file
         uses: actions/upload-artifact@v3
         with:
-          name: test-report-${{ matrix.npm-version }}
+          name: test-report
           path: ./junit.xml
       - name: Push tag
         run: git push --follow-tags
-      - uses: actions/checkout@master
-        with:
-          fetch-depth: '0'
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.17.2
         env:
           WITH_V: true
           DEFAULT_BUMP: patch
-      - name: version
-        run: npm --no-git-tag-version --allow-same-version version ${{ steps.tag.outputs.tag }}
-      
